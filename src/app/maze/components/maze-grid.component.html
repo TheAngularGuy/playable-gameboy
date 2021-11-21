@@ -1,0 +1,17 @@
+<div class="grid" *ngIf="grid">
+  <div class="line" *ngFor="let line of grid">
+    <div class="cell"
+         [ngClass]="{
+                      bt: cell.top,
+                      br: cell.right,
+                      bb: cell.bottom,
+                      bl: cell.left,
+                      start: cell.start,
+                      end: cell.end
+                    }"
+         *ngFor="let cell of line; trackBy: trackByFn">
+      <div class="player" *ngIf="cell.id == player"></div>
+      <!-- {{ cell.id }} -->
+    </div>
+  </div>
+</div>

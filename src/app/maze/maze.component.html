@@ -1,0 +1,15 @@
+<div class="wrapper">
+
+  <app-maze-grid [grid]="(grid$ | async)"
+                 [player]="(playerLocation$ | async)?.id">
+  </app-maze-grid>
+
+  <p class="msg">
+    <span class="won" *ngIf="completed$ | async">
+      You won <span *ngIf="perfect$ | async">with perfect score !!</span>!
+    </span>
+    You moved {{ nbMovements$ | async }} times.
+    <br>
+    Solvable in {{ depth$ | async }} moves.
+  </p>
+</div>

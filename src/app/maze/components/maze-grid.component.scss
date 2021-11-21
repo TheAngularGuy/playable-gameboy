@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+.grid {
+  --cellSize: 4.4%;
+  --grindScale: 1;
+  --success: #2ecc71;
+  --light: transparent;
+  --dark: #270714;
+
+
+  margin: 0 0 0 0;
+  padding-top: 5%;
+  transform: scale(var(--grindScale));
+
+  .line {
+    display: flex;
+    justify-content: center;
+
+    .cell {
+      background: var(--light);
+      position: relative;
+      width: var(--cellSize);
+      aspect-ratio: 1 / 1;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+
+    .start {
+      background: var(--light);
+    }
+    .end {
+      background: var(--success);
+    }
+
+    .bt {
+      &::after {
+        border-top: 1px solid var(--dark);
+      }
+    }
+    .bb {
+      &::after {
+        border-bottom: 1px solid var(--dark);
+      }
+    }
+    .br {
+      &::after {
+        border-right: 1px solid var(--dark);
+      }
+    }
+    .bl {
+      &::after {
+        border-left: 1px solid var(--dark);
+      }
+    }
+  }
+}
+
+.player,
+.other-player {
+  content: '';
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  left: 20%;
+  right: 20%;
+  border-radius: 50%;
+  background: #19b5fe;
+  border: 1px solid black;
+}
+
+.player {
+  /*transform: scale(0.7);
+  animation-name: move;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;*/
+
+  box-shadow: inset 1px 5px 5px -1px rgba(255, 255, 255, .6),
+  inset -1px -2px 5px -1px rgba(0, 0, 0, .5),
+  0 1px 1px hsl(0deg 0% 0% / 0.1),
+  0 2px 2px hsl(0deg 0% 0% / 0.1);
+}
+
+.other-player {
+  background: black;
+}
+
+@keyframes move {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}

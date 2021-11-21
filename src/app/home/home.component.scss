@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 6.5px;
+  height: 100%;
+  width: 100%;
+  font-family: "Andale Mono", Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 5rem;
+  margin: 10px 0;
+}
+
+
+p {
+  margin: 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  h1 {
+    font-size: 3rem;
+  }
+  p {
+    font-size: .8rem;
+  }
+}
