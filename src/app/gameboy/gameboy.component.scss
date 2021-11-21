@@ -20,7 +20,7 @@
             rgba(255, 175, 45, 1),
             rgba(240, 154, 24, 1));
     width: 97vw;
-    max-width: 36rem;
+    max-width: 28rem;
     aspect-ratio: 10 / 17;
     margin: auto;
 
@@ -51,7 +51,6 @@
         background: #efefef;
         margin: auto;
         transform: translateY(10%);
-        box-shadow: inset 0 0 20px 4px rgba(0, 0, 0, .66);
 
         &::after {
           z-index: 3;
@@ -63,6 +62,7 @@
           right: 0;
           background: rgba(15 130 55 / 40%);
           backdrop-filter: blur(.67px);
+          box-shadow: inset 0 0 20px 4px rgba(0, 0, 0, .56);
         }
 
         &::before {
@@ -166,10 +166,10 @@
 
       font-size: 1.2rem;
       color: rgba(240, 154, 24, 1);
-      text-shadow: 1px 1px 1.2px rgb(255 255 255 / 50%),
-      -1px -1px 1px rgb(1 1 1 / 7%);
-      box-shadow: inset -1px -2px 1px -1px rgba(255, 255, 255, .3),
-      inset 1px 1px 1px -1px rgba(0, 0, 0, .5);
+      text-shadow: -1px -1px 1.2px rgb(255 255 255 / 50%),
+      1px 1px 1px rgb(1 1 1 / 7%);
+      box-shadow: inset 1px 2px 1px -1px rgba(255, 255, 255, .3),
+      inset -1px -1px 1px -1px rgba(0, 0, 0, .5);
     }
 
     .buttons-row {
@@ -305,7 +305,9 @@
         box-sizing: border-box;
         box-shadow: inset 1px 5px 7px -1px rgba(255, 255, 255, .6),
         inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
-        1.5px 3px 5px -1px rgba(0, 0, 0, .7);
+        0px 0px 1px 1px rgba(0, 0, 0, .8),
+        2.5px 4px 5px -1px rgba(0, 0, 0, .7);
+
 
         cursor: pointer;
         position: relative;

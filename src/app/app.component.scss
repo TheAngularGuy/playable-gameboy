@@ -1,0 +1,9 @@
+.warning {
+  display: none;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .warning {
+    display: block;
+  }
+}
