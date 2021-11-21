@@ -46,7 +46,7 @@ export class MazeComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
 
     this.playerLocation$.next({ id: 0, x: 0, y: 0 });
-    this.grid$.next(this.mazeGenerator.getMaze(...[18, 18]));
+    this.grid$.next(this.mazeGenerator.getMaze(...[12, 12]));
     this.depth$.next(this.mazeGenerator.getDepth());
     this.completed$.next(false);
     this.nbMovements$.next(0);

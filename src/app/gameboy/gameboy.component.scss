@@ -62,7 +62,7 @@
           bottom: 0;
           right: 0;
           background: rgba(15 130 55 / 40%);
-          backdrop-filter: blur(.77px);
+          backdrop-filter: blur(.67px);
         }
 
         &::before {
@@ -327,6 +327,10 @@
           top: 100%;
           left: 50%;
           transform: translate(-50%, 40%);
+
+          @media screen and (max-width: 700px) {
+            font-size: .85rem;
+          }
         }
       }
     }

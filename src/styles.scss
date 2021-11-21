@@ -7,13 +7,15 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-body {
   background: #EFEFEF;
 }
 
+body {
+  touch-action: manipulation;
+}
+
 mark {
+  font-family: sans-serif !important;
   all: unset;
   display: inline-block;
   border-radius: 50%;
