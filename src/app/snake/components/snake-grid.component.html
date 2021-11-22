@@ -1,0 +1,22 @@
+<div class="grid" *ngIf="grid">
+  <div class="line" *ngFor="let line of grid; let i = index">
+    <div class="cell"
+         [ngClass]="{
+                      bt: cell.top,
+                      br: cell.right,
+                      bb: cell.bottom,
+                      bl: cell.left
+                    }"
+         *ngFor="let cell of line; trackBy: trackByFn; let j = index">
+
+      <div class="apple" *ngIf="apple && j === apple[0] && i === apple[1]"></div>
+
+      <div class="snake" *ngIf="snakeHashmap.has(j + ',' + i)"
+           [ngClass]="{
+                      tail: snakeHashmap.get(j + ',' + i) === 'TAIL',
+                      head: snakeHashmap.get(j + ',' + i) === 'HEAD'
+                    }"></div>
+      <!-- {{ cell.id }} -->
+    </div>
+  </div>
+</div>

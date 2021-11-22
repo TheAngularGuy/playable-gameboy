@@ -1,4 +1,10 @@
-<h1>MAZE</h1>
+
+<span>
+  <mark>⭠</mark>
+  select game
+  <mark>⭢</mark>
+</span>
+<h1 *ngIf="selectedGame.selectedGame$ | async as game">{{ game.name }}</h1>
 
 <p>Press START or <mark>A</mark> to start</p>
 <p>Press <mark>B</mark> to go back</p>

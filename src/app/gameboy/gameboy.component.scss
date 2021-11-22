@@ -98,31 +98,14 @@
         }
 
         .settings {
-          font-family: "Andale Mono", Helvetica, sans-serif;
           position: absolute;
-          content: '';
-          top: 100%;
           left: 0;
           bottom: 0;
           right: 0;
+          top: 0;
           background: #efefef;
-          display: none;
           pointer-events: none;
-
-          p {
-            padding: 0 5px;
-          }
-
-          @media screen and (max-width: 700px) {
-            p {
-              font-size: .9rem;
-            }
-          }
-
-          &.open {
-            top: 0;
-            display: block;
-          }
+          display: block;
         }
       }
 

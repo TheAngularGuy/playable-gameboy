@@ -3,22 +3,11 @@
     <div class="connection">▲ COMM.</div>
 
     <div class="screen">
-      <div class="lcd" [class.no-blur]="disableBlur$ | async">
+      <div class="lcd" [class.no-blur]="preferencesService.disableBlur$ | async">
         <router-outlet></router-outlet>
 
-        <div class="settings" [class.open]="openSettings$ | async">
-          <p>Press <mark>B</mark> to exit</p>
-          <hr>
-          <p>Press
-            <mark>⭠</mark>
-            or
-            <mark>⭢</mark>
-            to enable / disable the blur
-          </p>
-          <br>
-          <p>
-            Made with <3 by Mustapha Aouas (@theAngularGuy)
-          </p>
+        <div class="settings" *ngIf="preferencesService.openSettings$ | async">
+          <app-preferences></app-preferences>
         </div>
       </div>
       <div class="follow-me">
@@ -37,33 +26,33 @@
       <div class="left">
         <div class="croix">
           <div class="line"
-               (click)="buttonsEventsService.buttonClick.next('TOP')">⭡
+               (click)="buttonsEventsService.buttonClick$.next('TOP')">⭡
           </div>
           <div class="line"
-               (click)="buttonsEventsService.buttonClick.next('RIGHT')">⭢
+               (click)="buttonsEventsService.buttonClick$.next('RIGHT')">⭢
           </div>
           <div class="line"
-               (click)="buttonsEventsService.buttonClick.next('BOTTOM')">⭣
+               (click)="buttonsEventsService.buttonClick$.next('BOTTOM')">⭣
           </div>
           <div class="line"
-               (click)="buttonsEventsService.buttonClick.next('LEFT')">⭠
+               (click)="buttonsEventsService.buttonClick$.next('LEFT')">⭠
           </div>
           <div class="middle"></div>
         </div>
       </div>
       <div class="right">
-        <button (click)="buttonsEventsService.buttonClick.next('A')">A</button>
-        <button (click)="buttonsEventsService.buttonClick.next('B')">B</button>
+        <button (click)="buttonsEventsService.buttonClick$.next('A')">A</button>
+        <button (click)="buttonsEventsService.buttonClick$.next('B')">B</button>
       </div>
     </div>
 
     <div class="small-buttons">
-      <button (click)="buttonsEventsService.buttonClick.next('SELECT')">
+      <button (click)="buttonsEventsService.buttonClick$.next('SELECT')">
         <span>
           SELECT
         </span>
       </button>
-      <button (click)="buttonsEventsService.buttonClick.next('START')">
+      <button (click)="buttonsEventsService.buttonClick$.next('START')">
         <span>
           START
         </span>

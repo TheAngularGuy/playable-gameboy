@@ -2,10 +2,10 @@
   display: block;
 }
 
+
 .grid {
-  --cellSize: 6.4%;
+  --cellSize: 3.4%;
   --grindScale: 1;
-  --success: #2ecc71;
   --light: transparent;
   --dark: #270714;
 
@@ -38,13 +38,6 @@
       }
     }
 
-    .start {
-      background: var(--light);
-    }
-    .end {
-      background: var(--success);
-    }
-
     .bt {
       &::after {
         border-top: 1px solid var(--dark);
@@ -68,35 +61,34 @@
   }
 }
 
-.player {
+.snake {
+  z-index: 2;
   content: '';
   position: absolute;
-  top: 20%;
-  bottom: 20%;
-  left: 20%;
-  right: 20%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 5%;
+  background: transparent;
+  border: 1px solid #000000aa;
+
+  &.head {
+    background: #00000099;
+  }
+  &.tail {
+  }
+}
+
+.apple {
+  z-index: 1;
+  content: '';
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 5%;
+  right: 5%;
   border-radius: 50%;
-  background: #19b5fe;
-  border: 1px solid #006699;
-
-  box-shadow: inset 1px 5px 5px -1px rgba(255, 255, 255, .6),
-  inset -1px -2px 5px -1px rgba(0, 0, 0, .5),
-  0 1px 1px hsl(0deg 0% 0% / 0.1),
-  0 2px 2px hsl(0deg 0% 0% / 0.1);
-
-  /*transform: scale(0.7);
-  animation-name: move;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;*/
+  background: red;
+  border: 1px solid red;
 }
-
-/*
-@keyframes move {
-  from {
-    transform: scale(0.7);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-*/

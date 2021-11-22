@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {SelectedGameService} from '../services/selected-game.service';
 
 @Component({
   templateUrl: './home.component.html',
@@ -8,6 +9,8 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
+  constructor(public selectedGame: SelectedGameService) {
+  }
 }
 
 @NgModule({

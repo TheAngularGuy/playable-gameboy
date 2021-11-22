@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, NgModule, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BehaviorSubject, Subscription, tap } from 'rxjs';
-import { BtnKey } from '../models/Btn';
+import { BtnKey } from '../models/BtnKey';
 import { ButtonsEventsService } from '../services/buttons-events.service';
 import { MazeGridModule } from './components/maze-grid.component';
 import { CellModel } from './models/Cell';
 import { PlayerLocation } from './models/PlayerLocation';
 import { GeneratorService } from './services/generator.service';
 import { SolverService } from './services/solver.service';
-import { UtilsService } from './services/utils.service';
 
 @Component({
   templateUrl: './maze.component.html',
@@ -51,7 +50,7 @@ export class MazeComponent implements OnInit, OnDestroy {
     this.completed$.next(false);
     this.nbMovements$.next(0);
 
-    this.subscription = this.buttonsEventsService.buttonClick.pipe(
+    this.subscription = this.buttonsEventsService.buttonClick$.pipe(
       tap((key: BtnKey) => {
         if (key === 'B') {
           this.goBack();
@@ -153,7 +152,6 @@ export class MazeComponent implements OnInit, OnDestroy {
     MazeComponent,
   ],
   providers: [
-    UtilsService,
     GeneratorService,
     SolverService,
   ],

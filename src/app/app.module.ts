@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonsEventsService } from './services/buttons-events.service';
 
 @NgModule({
   declarations: [
@@ -13,9 +12,7 @@ import { ButtonsEventsService } from './services/buttons-events.service';
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [
-    ButtonsEventsService,
-  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

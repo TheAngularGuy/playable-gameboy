@@ -1,0 +1,12 @@
+<app-snake-grid [grid]="grid"
+                [snake]="snake$ | async"
+                [apple]="apple$ | async"
+></app-snake-grid>
+
+<br>
+<ng-container *ngIf="!(gameOngoing$ | async)">
+  <span class="lost">Your lost!</span>
+  <span> press <mark>A</mark> to restart</span>
+</ng-container>
+<p>Your current score is {{ score$ | async }}</p>
+<p>Your best score is {{ bestScore$ | async }}</p>

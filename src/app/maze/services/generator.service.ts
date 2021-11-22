@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CellModel } from '../models/Cell';
 import { SolverService } from './solver.service';
-import { UtilsService } from './utils.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Injectable()
 export class GeneratorService {

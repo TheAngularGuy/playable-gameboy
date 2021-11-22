@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
-import { BtnKey } from '../models/Btn';
+import { Subscription, tap } from 'rxjs';
+import { BtnKey } from '../models/BtnKey';
 import { ButtonsEventsService } from '../services/buttons-events.service';
+import { PreferencesModule } from '../preferences/preferences.module';
+import { PreferencesService } from '../preferences/preferences.service';
+import {SelectedGameService} from '../services/selected-game.service';
 
 @Component({
   templateUrl: './gameboy.component.html',
@@ -12,48 +15,63 @@ import { ButtonsEventsService } from '../services/buttons-events.service';
 })
 export class GameboyComponent implements OnInit, OnDestroy {
   sub: Subscription | undefined;
-  openSettings$ = new BehaviorSubject(false);
-  disableBlur$ = new BehaviorSubject(
-    !!JSON.parse(window.localStorage.getItem('blur') || 'false'));
+
+  get isGameOpen(): boolean {
+    return this.router.url.includes('play');
+  }
+  get isSettingsOpen(): boolean {
+    return this.preferencesService.openSettings$.getValue();
+  }
 
   constructor(
     public buttonsEventsService: ButtonsEventsService,
+    public preferencesService: PreferencesService,
+    public selectedGame: SelectedGameService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.sub = this.buttonsEventsService.buttonClick.pipe(
+    this.sub = this.buttonsEventsService.buttonClick$.pipe(
       tap((key: BtnKey) => {
-        if (key === 'A' || key === 'START') {
-          this.startGame();
-        } else if (key === 'B') {
-          this.openSettings$.next(false);
-        } else if (key === 'SELECT') {
-          this.openSettings();
-        } else if (key === 'LEFT' || key === 'RIGHT') {
-          this.toggleBlur();
+        switch (key) {
+          case 'A':
+          case 'START':
+            this.startGame();
+            break;
+          case 'B':
+            this.closeSettings();
+            break;
+          case 'SELECT':
+            this.openSettings();
+            break;
+          case 'LEFT':
+            this.changeGame('LEFT');
+            break;
+          case 'RIGHT':
+            this.changeGame('RIGHT');
+            break;
         }
       }),
     ).subscribe();
   }
 
   startGame() {
-    if (!this.openSettings$.getValue() && !this.router.url.includes('maze')) {
-      this.router.navigateByUrl('maze');
+    if (!this.isGameOpen && !this.isSettingsOpen) {
+      const selectedGame = this.selectedGame.selectedGame$.getValue();
+      this.router.navigate(['play', selectedGame.path]);
     }
   }
 
+  changeGame(direction: 'LEFT' | 'RIGHT') {
+    this.selectedGame.changeGame(direction);
+  }
+
+  closeSettings() {
+    this.preferencesService.setSettingsPanelBoolean(false);
+  }
   openSettings() {
-    if (!this.router.url.includes('maze')) {
-      this.openSettings$.next(true);
-    }
-  }
-
-  toggleBlur() {
-    if (this.openSettings$.getValue()) {
-      const newVal = !this.disableBlur$.getValue();
-      this.disableBlur$.next(newVal);
-      window.localStorage.setItem('blur', JSON.stringify(newVal));
+    if (!this.isGameOpen) {
+      this.preferencesService.setSettingsPanelBoolean(true);
     }
   }
 
@@ -68,6 +86,9 @@ export class GameboyComponent implements OnInit, OnDestroy {
   ],
   imports: [
     CommonModule,
+    PreferencesModule,
+
+    // Routes
     RouterModule.forChild([{
       path: '',
       component: GameboyComponent,
@@ -75,8 +96,14 @@ export class GameboyComponent implements OnInit, OnDestroy {
         path: '',
         loadChildren: () => import('../home/home.component').then(m => m.HomeModule),
       }, {
-        path: 'maze',
-        loadChildren: () => import('../maze/maze.component').then(m => m.MazeModule),
+        path: 'play',
+        children: [{
+          path: 'maze',
+          loadChildren: () => import('../maze/maze.component').then(m => m.MazeModule),
+        }, {
+          path: 'snake',
+          loadChildren: () => import('../snake/snake.component').then(m => m.SnakeModule),
+        }],
       }],
     }]),
   ],
