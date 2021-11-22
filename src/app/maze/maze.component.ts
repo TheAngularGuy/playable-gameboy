@@ -54,11 +54,15 @@ export class MazeComponent implements OnInit, OnDestroy {
     this.subscription = this.buttonsEventsService.buttonClick.pipe(
       tap((key: BtnKey) => {
         if (key === 'B') {
-          this.router.navigateByUrl('/');
+          this.goBack();
         }
         this.keyCodeToMovementMapper(key);
       }),
     ).subscribe();
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/');
   }
 
   movePlayerToNewLocation(newLocation: PlayerLocation) {
@@ -74,29 +78,15 @@ export class MazeComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    event.preventDefault();
-    this.keyCodeToMovementMapper(event.code);
-  }
-
   keyCodeToMovementMapper(code: string) {
     switch (code) {
       case 'TOP':
-      case 'KeyW':
-      case 'ArrowUp':
         return this.moveUp();
       case 'RIGHT':
-      case 'KeyD':
-      case 'ArrowRight':
         return this.moveRight();
       case 'BOTTOM':
-      case 'KeyS':
-      case 'ArrowDown':
         return this.moveDown();
       case 'LEFT':
-      case 'KeyA':
-      case 'ArrowLeft':
         return this.moveLeft();
     }
   }
