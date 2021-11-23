@@ -5,7 +5,7 @@
 
 <br>
 <ng-container *ngIf="!(gameOngoing$ | async)">
-  <span class="lost">Your lost!</span>
+  <span class="lost">You lost!</span>
   <span> press <mark>A</mark> to restart</span>
 </ng-container>
 <p>Your current score is {{ score$ | async }}</p>
