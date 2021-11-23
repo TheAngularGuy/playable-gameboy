@@ -16,7 +16,7 @@ import { ButtonsEventsService } from '../services/buttons-events.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnakeComponent implements OnInit, OnDestroy {
-  static INTERVAL = 120;
+  static INTERVAL = 165;
 
   grid: CellModel[][] = [];
   snake$ = new BehaviorSubject<SnakeCell[]>([]);

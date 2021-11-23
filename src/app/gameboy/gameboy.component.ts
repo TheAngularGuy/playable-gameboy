@@ -6,7 +6,7 @@ import { BtnKey } from '../models/BtnKey';
 import { ButtonsEventsService } from '../services/buttons-events.service';
 import { PreferencesModule } from '../preferences/preferences.module';
 import { PreferencesService } from '../preferences/preferences.service';
-import {SelectedGameService} from '../services/selected-game.service';
+import { SelectedGameService } from '../services/selected-game.service';
 
 @Component({
   templateUrl: './gameboy.component.html',
@@ -19,6 +19,7 @@ export class GameboyComponent implements OnInit, OnDestroy {
   get isGameOpen(): boolean {
     return this.router.url.includes('play');
   }
+
   get isSettingsOpen(): boolean {
     return this.preferencesService.openSettings$.getValue();
   }
@@ -63,12 +64,15 @@ export class GameboyComponent implements OnInit, OnDestroy {
   }
 
   changeGame(direction: 'LEFT' | 'RIGHT') {
-    this.selectedGame.changeGame(direction);
+    if (!this.isGameOpen && !this.isSettingsOpen) {
+      this.selectedGame.changeGame(direction);
+    }
   }
 
   closeSettings() {
     this.preferencesService.setSettingsPanelBoolean(false);
   }
+
   openSettings() {
     if (!this.isGameOpen) {
       this.preferencesService.setSettingsPanelBoolean(true);

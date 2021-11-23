@@ -148,7 +148,7 @@ export class SnakeService {
 
     newSnake[0].x -= 1;
     if (newSnake[0].x === -1) {
-      newSnake[0].x = this.grid[0].length;
+      newSnake[0].x = this.grid[0].length - 1;
     }
     this.snake = this.copyRestOfTheSnake(newSnake);
     return this.snake;
