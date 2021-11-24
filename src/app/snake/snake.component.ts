@@ -16,7 +16,7 @@ import { ButtonsEventsService } from '../services/buttons-events.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SnakeComponent implements OnInit, OnDestroy {
-  static INTERVAL = 165;
+  static INTERVAL = 150;
 
   grid: CellModel[][] = [];
   snake$ = new BehaviorSubject<SnakeCell[]>([]);
@@ -27,7 +27,8 @@ export class SnakeComponent implements OnInit, OnDestroy {
     JSON.parse(window.localStorage.getItem('bestSnakeScore') || JSON.stringify(0))
   );
 
-  subscription: Subscription | undefined;
+  subscriptionOnInit: Subscription = new Subscription();
+  subscriptionOnStart: Subscription = new Subscription();
   direction: Directions = 'RIGHT';
   directionDemanded: Directions | undefined;
 
@@ -39,11 +40,12 @@ export class SnakeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscriptionOnInit.unsubscribe();
+    this.subscriptionOnStart.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subscription = this.buttonsEventsService.buttonClick$.pipe(
+    const sub = this.buttonsEventsService.buttonClick$.pipe(
       tap((key: BtnKey) => {
         if (key === 'B') {
           this.goBack();
@@ -54,9 +56,13 @@ export class SnakeComponent implements OnInit, OnDestroy {
       }),
     ).subscribe();
     this.startGame();
+
+    this.subscriptionOnInit.add(sub)
   }
 
   startGame() {
+    this.subscriptionOnStart.unsubscribe();
+    this.subscriptionOnStart = new Subscription();
     if (this.gameOngoing$.getValue()) {
       return;
     }
@@ -73,9 +79,9 @@ export class SnakeComponent implements OnInit, OnDestroy {
       tap(() => this.moveSnake()),
       takeUntil(this.snakeService.snakeDied$),
     ).subscribe();
-    this.subscription?.add(intervalSub);
-    this.subscription?.add(diedSub);
-    this.subscription?.add(ateAppleSub);
+    this.subscriptionOnStart.add(intervalSub);
+    this.subscriptionOnStart.add(diedSub);
+    this.subscriptionOnStart.add(ateAppleSub);
   }
 
   private increaseScore() {
