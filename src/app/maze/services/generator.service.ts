@@ -61,7 +61,7 @@ export class GeneratorService {
     if (maxy - miny <= 1 || maxx - minx <= 1) {
       return;
     }
-    const y = this.utils.getRandomIntBetween(miny + 1, maxy - 1);
+    const y = Math.floor((miny + maxy) / 2);// this.utils.getRandomIntBetween(miny + 1, maxy - 1);
     const openX = this.utils.getRandomIntBetween(minx, maxx - 1);
     for (let x = minx; x < maxx; x++) {
       if (x !== openX) {
@@ -69,14 +69,15 @@ export class GeneratorService {
         this.grid[y - 1][x].bottom = true;
       }
     }
-    this.divideX(minx, miny, maxx, y), this.divideX(minx, y, maxx, maxy);
+    this.divideX(minx, miny, maxx, y);
+    this.divideX(minx, y, maxx, maxy);
   }
 
   private divideX(minx: number, miny: number, maxx: number, maxy: number) {
     if (maxx - minx <= 1 || maxy - miny <= 1) {
       return;
     }
-    const x = this.utils.getRandomIntBetween(minx + 1, maxx - 1);
+    const x = Math.floor((minx + maxx) / 2);// this.utils.getRandomIntBetween(minx + 1, maxx - 1);
     const openY = this.utils.getRandomIntBetween(miny, maxy - 1);
     for (let y = miny; y < maxy; y++) {
       if (y !== openY) {
@@ -84,6 +85,7 @@ export class GeneratorService {
         this.grid[y][x - 1].right = true;
       }
     }
-    this.divideY(minx, miny, x, maxy), this.divideY(x, miny, maxx, maxy);
+    this.divideY(minx, miny, x, maxy);
+    this.divideY(x, miny, maxx, maxy);
   }
 }
